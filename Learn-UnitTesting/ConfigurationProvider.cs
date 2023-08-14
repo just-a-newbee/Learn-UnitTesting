@@ -7,7 +7,12 @@ using System.Threading.Tasks;
 
 namespace Learn_UnitTesting
 {
-    public class ConfigurationProvider
+    public interface IConfigurationProvider
+    {
+        string GetConnectingString();
+    }
+
+    public class ConfigurationProvider : IConfigurationProvider
     {
         public string GetConnectingString()
         {

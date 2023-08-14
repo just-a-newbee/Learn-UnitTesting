@@ -8,7 +8,12 @@ using System.Threading.Tasks;
 
 namespace Learn_UnitTesting.Dao
 {
-    public class EmployeesDao
+    public interface IEmployeesDao
+    {
+        decimal GetHourlyRate(string EmployeeId);
+    }
+
+    public class EmployeesDao : IEmployeesDao
     {
         IDbConnection _connection;
         public EmployeesDao(IDbConnection Connection)
