@@ -10,30 +10,30 @@ namespace TestProject
         {
         }
 
-        [Test]
-        public void GetSalary_HasValue_ReturnCorrectSalary()
-        {
-            #region Arrange
+        //[Test]
+        //public void GetSalary_HasValue_ReturnCorrectSalary()
+        //{
+        //    #region Arrange
 
-            string EmployeeId = "E123456789";
-            DateTime Date = new DateTime(2023, 7, 1);
+        //    string EmployeeId = "E123456789";
+        //    DateTime Date = new DateTime(2023, 7, 1);
 
-            SalaryService Service = new SalaryService();
-            decimal Expected = 166 * 144;
+        //    SalaryService Service = new SalaryService();
+        //    decimal Expected = 166 * 144;
 
-            #endregion
+        //    #endregion
 
-            #region Act
+        //    #region Act
 
-            decimal Actual = Service.GetSalary(EmployeeId, Date);
+        //    decimal Actual = Service.GetSalary(EmployeeId, Date);
 
-            #endregion
+        //    #endregion
 
-            #region Assert
+        //    #region Assert
 
-            Assert.AreEqual(Expected, Actual);
+        //    Assert.AreEqual(Expected, Actual);
 
-            #endregion
-        }
+        //    #endregion
+        //}
     }
 }

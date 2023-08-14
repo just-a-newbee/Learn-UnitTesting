@@ -1,5 +1,7 @@
 ﻿using Learn_UnitTesting.Service;
 using System;
+using Learn_UnitTesting.Dao;
+using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 
 namespace Learn_UnitTesting
@@ -36,7 +38,15 @@ namespace Learn_UnitTesting
 
             try
             {
-                var Result = new SalaryService().GetSalary(EmployeeId, new DateTime(Year, Month, 1));
+                ConfigurationProvider ConfigurationProvider = new ConfigurationProvider();
+                string ConnectingString = ConfigurationProvider.GetConnectingString();
+                using SqlConnection Connection = new SqlConnection(ConnectingString);
+
+                EmployeesDao EmployeesDao = new EmployeesDao(Connection);
+                AttendanceDao AttendanceDao = new AttendanceDao(Connection);
+
+                var Result = new SalaryService(EmployeesDao, AttendanceDao)
+                    .GetSalary(EmployeeId, new DateTime(Year, Month, 1));
                 Console.WriteLine($"員工：{EmployeeId} {Year}/{Month}薪資單 薪水金額：{Result}");
             }
             catch (Exception exception)

@@ -7,6 +7,14 @@ namespace Learn_UnitTesting.Service
 {
     public class SalaryService
     {
+        IEmployeesDao _employeesDao;
+        IAttendanceDao _attendanceDao;
+        public SalaryService(IEmployeesDao EmployeesDao, IAttendanceDao AttendanceDao)
+        {
+            _employeesDao = EmployeesDao;
+            _attendanceDao = AttendanceDao;
+        }
+
         public decimal GetSalary(string EmpolyeeId, DateTime Date)
         {
             if (string.IsNullOrWhiteSpace(EmpolyeeId))
@@ -20,11 +28,9 @@ namespace Learn_UnitTesting.Service
             using SqlConnection Connection = new SqlConnection(ConnectingString);
             Connection.Open();
 
-            decimal HourlyRate = new EmployeesDao(Connection)
-                .GetHourlyRate(EmpolyeeId);
+            decimal HourlyRate = _employeesDao.GetHourlyRate(EmpolyeeId);
 
-            decimal WorkHour = new AttendanceDao(Connection)
-                .GetWorkHour(EmpolyeeId, Date);
+            decimal WorkHour = _attendanceDao.GetWorkHour(EmpolyeeId, Date);
 
             var Result = HourlyRate * WorkHour;
 
