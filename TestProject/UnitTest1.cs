@@ -1,3 +1,4 @@
+using Learn_UnitTesting.Dao;
 using Learn_UnitTesting.Service;
 using NUnit.Framework;
 
@@ -10,30 +11,53 @@ namespace TestProject
         {
         }
 
-        //[Test]
-        //public void GetSalary_HasValue_ReturnCorrectSalary()
-        //{
-        //    #region Arrange
+        [Test]
+        public void GetSalary_HasValue_ReturnCorrectSalary()
+        {
+            #region Arrange
 
-        //    string EmployeeId = "E123456789";
-        //    DateTime Date = new DateTime(2023, 7, 1);
+            FakeEmployeesDao employeesDao = new FakeEmployeesDao();
+            employeesDao.SetHourlyRate = 166;
+            FakeAttendanceDao attendanceDao = new FakeAttendanceDao();
+            attendanceDao.SetWorkHour = 144;
 
-        //    SalaryService Service = new SalaryService();
-        //    decimal Expected = 166 * 144;
+            string EmployeeId = "E123456789";
+            DateTime Date = new DateTime(2023, 7, 1);
 
-        //    #endregion
+            SalaryService Service = new SalaryService(employeesDao, attendanceDao);
+            decimal Expected = 166 * 144;
 
-        //    #region Act
+            #endregion
 
-        //    decimal Actual = Service.GetSalary(EmployeeId, Date);
+            #region Act
 
-        //    #endregion
+            decimal Actual = Service.GetSalary(EmployeeId, Date);
 
-        //    #region Assert
+            #endregion
 
-        //    Assert.AreEqual(Expected, Actual);
+            #region Assert
 
-        //    #endregion
-        //}
+            Assert.AreEqual(Expected, Actual);
+
+            #endregion
+        }
+    }
+
+    class FakeEmployeesDao : IEmployeesDao
+    {
+        public decimal SetHourlyRate = 0;
+        public decimal GetHourlyRate(string EmployeeId)
+        {
+            return SetHourlyRate;
+        }
+    }
+
+    class FakeAttendanceDao : IAttendanceDao
+    {
+        public decimal SetWorkHour = 0;
+        public decimal GetWorkHour(string EmployeeId, DateTime Date)
+        {
+            return SetWorkHour;
+        }
     }
 }
